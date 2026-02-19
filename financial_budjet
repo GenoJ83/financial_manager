@@ -1,0 +1,70 @@
+def get_budget():
+    """Prompt the user to enter a valid non-negative budget."""
+    while True:
+        try:
+            budget = float(input("Enter your weekly budget: "))
+            if budget < 0:
+                print("Budget cannot be negative. Please try again.")
+            else:
+                return budget
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
+
+
+def get_transaction():
+    """Capture a single transaction from the user."""
+    description = input("Enter expense description: ")
+
+    while True:
+        try:
+            amount = float(input("Enter expense amount: "))
+            if amount < 0:
+                print("Amount cannot be negative. Please try again.")
+            else:
+                return description, amount
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
+
+
+def print_summary(budget, total_spent, transactions):
+    """Display final financial report."""
+    print("\n========== FINAL FINANCIAL SUMMARY ==========")
+    print(f"Initial Budget: UGX {budget:.2f}")
+    print(f"Total Expenses: UGX {total_spent:.2f}")
+
+    if total_spent > budget:
+        print(f"Deficit: UGX {total_spent - budget:.2f}")
+    else:
+        print(f"Remaining Balance: UGX {budget - total_spent:.2f}")
+
+    print("\n--- TRANSACTION LOG ---")
+    for i, (desc, amt) in enumerate(transactions, start=1):
+        print(f"{i}. {desc} - UGX {amt:.2f}")
+
+
+def main():
+    print("Welcome to the Personal Finance Manager\n")
+
+    budget = get_budget()
+    transactions = []
+    total_spent = 0
+
+    print("\nEnter at least 5 transactions.")
+    
+    for i in range(5):
+        print(f"\nTransaction {i + 1}")
+        description, amount = get_transaction()
+
+        transactions.append((description, amount))
+        total_spent += amount
+
+        # Real-time budget monitoring
+        if total_spent > budget:
+            print("WARNING: You have exceeded your budget!")
+
+    # Final report
+    print_summary(budget, total_spent, transactions)
+
+
+if __name__ == "__main__":
+    main()
