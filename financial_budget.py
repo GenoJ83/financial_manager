@@ -1,12 +1,3 @@
-"""
-Personal Finance Manager - Object-Oriented Implementation
-
-OOP Principles Demonstrated:
-- ENCAPSULATION: Bundling data (attributes) and methods together in classes
-- ABSTRACTION: Hiding complex implementation details behind simple interfaces
-- INHERITANCE: Creating new classes from existing ones (used internally by Python)
-- POLYMORPHISM: Different classes can be used interchangeably via common interfaces
-"""
 
 from datetime import datetime
 from typing import List, Optional
