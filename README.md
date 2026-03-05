@@ -79,10 +79,21 @@ def remaining(self) -> float:
 for i, transaction in enumerate(transactions, start=1):
     print(f"{i}. {transaction.description}")
 ```
+### 4. Facade Pattern
 
+**Definition:** Provides a simplified interface to a complex subsystem.
+
+**Why:** Users interact with one class (`FinanceManager`) instead of managing `Budget`, `TransactionLog`, and `Transaction` separately.
+
+```python
+# User only needs to work with FinanceManager
+manager = FinanceManager()
+manager.run()  # Handles everything internally
+```
 ---
+## SOLID Principles Applied
 
-### 4. Single Responsibility Principle (SRP)
+### 1. Single Responsibility Principle (SRP)
 
 **Definition:** Each class should have one reason to change—one job.
 
@@ -95,22 +106,36 @@ for i, transaction in enumerate(transactions, start=1):
 | `TransactionLog` | Manages collection of transactions |
 | `FinanceManager` | Orchestrates application flow |
 
----
+### 2. Open/Closed Principle (OCP)
 
-### 5. Facade Pattern
+**Definition**; Software entities should be **open for extension but closed for modification**.
 
-**Definition:** Provides a simplified interface to a complex subsystem.
+**Application in this project**
 
-**Why:** Users interact with one class (`FinanceManager`) instead of managing `Budget`, `TransactionLog`, and `Transaction` separately.
+The system is designed so that new features can be added without modifying the existing classes.
+
+For example:
+
+- New **reporting features** can be implemented without modifying the `Transaction` or `Budget` classes.
+- Additional **analytics or reporting classes** could operate on the `TransactionLog`.
+- Future features such as **monthly reports, statistics, or export functionality** can be added as separate modules.
+
+This approach ensures that the core components of the system remain **stable while still allowing future expansion**.
+
+### 3. Dependency Inversion Principle (DIP)
+
+**Definition**; High-level modules should **not depend on low-level implementation details**, but instead rely on abstractions.
+
+**Application in this project**
+
+The `FinanceManager` class acts as the **high-level controller** of the application and delegates specific responsibilities to specialized classes such as `Budget` and `TransactionLog`.
+
+Example from the code:
 
 ```python
-# User only needs to work with FinanceManager
-manager = FinanceManager()
-manager.run()  # Handles everything internally
+transaction = self.transaction_log.add_transaction(description, amount)
+self.budget.add_expense(amount)
 ```
-
----
-
 ## Clean Code Principles Applied
 
 ### 1. Meaningful Names
